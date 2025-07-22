@@ -1,23 +1,23 @@
 #set text(font:"New Computer Modern", lang:"cs", size:10.5pt)
 
 #let footer_texts = (
-  [*Odpovědi: 1c, 2b, 3b, 4a, 5a(c)ef*\
+  [*Odpovědi: 1c, 2b, 3b, 4a, 5aef*\
   Amdahlův zákon: $S = 1/((1-p)+p/s)$ Zlepšení (%) $= 100(1-1/S) = 100(p-p/s)$. Pro cvičení 4 je $p=0.2$ a $s=10$.],
   [*Odpovědi: 6dgk*],
-  [*Odpovědi: 7aceg, 8ade, 9acdf*\
+  [*Odpovědi: 7abceg, 8ade, 9acdf*\
   Poznámka pro 9:
   https://www.openmp.org/spec-html/5.0/openmpsu32.html#x51-710002.5.3],
   [*Odpovědi: 10b* (díky direktivě nowait)*, 11e, 12be*],
   [*Odpovědi: 13(b)e *(funkce mutex vyžaduje min 2 argumenty)*, 14b, 15c, 16b*],
-  [*Odpovědi: 17ae* (Jeden task ho může zamknout vícekrát bez deadlocku. Ostatní tasky se k locku dostanou až ve chvíli, kdy ho owning task odemkne tolikrát, kolikrát ho dříve zamknul. Odpovědi jsou za předpokladu, že A ani B nepracuje s mutexy.) (e je mozna spatne, protoze pokud prvni vlakno uzamkne mutex a selze v B, tak zustane byt ozamcenej)*, 18cdeik*],
-  [*Odpovědi: 19b*(6x ELECTION, 3x OK, 2x COORDINATOR)*, c *(P1 posle election, prijme to P5, zacne timout a posle vsem ostatnim election, po timeoutu posle COORDINATION)* f, 20efi*],
+  [*Odpovědi: 17ae* (Jeden task ho může zamknout vícekrát bez deadlocku. Ostatní tasky se k locku dostanou až ve chvíli, kdy ho owning task odemkne tolikrát, kolikrát ho dříve zamknul. Odpovědi jsou za předpokladu, že A ani B nepracuje s mutexy.) (e je možná špatně, protože pokud první vlákno uzamkne mutex a selže v B, tak zůstane uzamčen)*, 18cdeik*],
+  [*Odpovědi: 19b*(6x ELECTION, 3x OK, 2x COORDINATOR)*, c*(P1 pošle ELECTION, přijme to P5, začne timout a pošle všem ostatním ELECTION, po timeoutu pošle COORDINATION)* f, 20ehi*],
   [*Odpovědi: 21bcd, 22ace*],
   [*Odpovědi: 23abc, 24efhj*],
-  [*Odpovědi: 25dhi *(RAFT nemuze prestat byt uplny, vzdy detekuje, ale mozna chybne)*, 26a*],
+  [*Odpovědi: 25dhi *(RAFT nemůže přestat být úplný, vždy detekuje, ale možná chybně)*, 26a*],
   [*Odpovědi: 27fhij , 28f*],
   [*Odpovědi: 29b, 30abd, 31a*],
-  [*Odpovědi: 32d, 33a * (na zkousce bylo chybne c jako spravne reseni)],
-  [*Odpovědi: 34aefjk *(barrier je jen na konci sections, ne na zacatku)* , 35e*],
+  [*Odpovědi: 32d, 33a*],
+  [*Odpovědi: 34aefjk *(barrier je jen na konci sections, ne na začátku)* , 35e*],
   [*Odpovědi: 36bcdf*(většinou se ale vypíše s 0 na začátku, ale v možnostech chybí)*, 37b, 38c*],
   [*Odpovědi: 39bdg, 40dgh, 41c*],
   [*Odpovědi: 42acdef - e je možný že ne, běžný forloop bude fungovat bez toho, 43bc, 44abc, 45c*(a- latence může změnit pořadí, b- pořadí je dané kruhem)*, 46a* (a- 3, b- od 0 do n, c- 2(n-1) )],
@@ -30,8 +30,8 @@
   [*Odpovědi: 60bd*(*c* pokud chtějí slyšet jen vzoreček, *d* pokud chtějí konkrétní číslo)*ef*],
   [*Odpovědi: 61bcg, 62acd*],
   [*Odpovědi: 63bcehikl, 64: 9 90 10, 65: 2 2 2, 66bde*],
-  [*Odpovědi: 67beij, 68a) 250; b) 40* (260-100=160, 160-80=80 (casove rozmezi ve kterem nevime kdy presne byl cas nameren), tim padem zvolime pulku tohoto intermalu jako odchylku a namereny cas umistime doprostred -> odchylka 80/2=40, cas 150+40+60=250)],
-  [*Odpovědi: 69 a) uzavre P3 -> P1, b) zaznam lok stavu, posle P1, P3, zacne odposlouchavani P1 -> P2 c) zadna operace*],
+  [*Odpovědi: 67beij, 68a) 250; b) 40* ($260-100=160$, $160-80=80$ (časové rozmezí ve kterém nevíme kdy přesně byl čas naměřen), tedy zvolíme půlku tohoto intervalu jako odchylku a naměřený čas umístíme doprostřed  odchylka $80/2=40$, čas $150+40+60=250$)],
+  [*Odpovědi: 69 a) uzavře P3 $->$ P1, b) záznam lok stavu, pošle P1, P3, začne odposlouchávání P1 $->$ P2 c) žádná operace*],
   [*Odpovědi: 70cde*],
   [*Odpovědi: 71cehj*],
   [*Odpovědi: 72ah*],
@@ -39,6 +39,11 @@
 )
 
 #set page(
+  margin: (
+    top: 2cm,
+    bottom: 3.5cm,
+    x: 2.5cm,
+  ),
   footer: context {
     let page_num = counter(page).get().at(0)
 
@@ -49,12 +54,12 @@
     } else {
       align(center, " ")
     }
+    align(center, [str. #counter(page).display()])
   }
 )
 
-
 #set align(center)
-= Teoretické otázky k  B4B36PDV s (možná) správnými odpovědmi
+= Řešené teoretické otázky pro B4B36PDV
 \
 \
 #set align(left)
@@ -97,7 +102,7 @@
 
 #pagebreak()
 
-*6. V distribuovaném systému vykonávajícím výpočet zachycený na resources/obrázku běží skalární i vektorové logické hodiny. Na začátku výpočtu jsou všechny hodiny inicializovány na nulové hodnoty.* \
+*6. V distribuovaném systému vykonávajícím výpočet zachycený na obrázku běží skalární i vektorové logické hodiny. Na začátku výpočtu jsou všechny hodiny inicializovány na nulové hodnoty.* \
 #figure(
   image("resources/obr01.png", width: 100%, fit: "stretch"),
 )
@@ -119,7 +124,7 @@ Pozn.: Jak pro skalární, tak pro vektorové hodnoty se dotazujeme na jejich ho
 
 #pagebreak()
 
-*7. V distribuovaném výpočtu zachyceném úplně na resources/obrázku uvažujme uspořádání událostí. Označte všechny výroky, které jsou pravdivé vzhledem k uspořádání dle relace #underline[stalo se před]:* \
+*7. V distribuovaném výpočtu zachyceném úplně na obrázku uvažujme uspořádání událostí. Označte všechny výroky, které jsou pravdivé vzhledem k uspořádání dle relace #underline[stalo se před]:* \
 #figure(
   image("resources/obr01.png", width: 100%, fit: "stretch"),
 )
@@ -266,7 +271,7 @@ Označte pravdivá tvrzení týkající se komunikační složitosti a latence n
 
 #pagebreak()
 
-*21. Na resources/obrázku jsou zachyceny tři řezy distribuovaného výpočtu:*\
+*21. Na obrázku jsou zachyceny tři řezy distribuovaného výpočtu:*\
 #figure(
   image("resources/obr06.png", height: 25%, fit: "stretch"),
 )
@@ -343,7 +348,7 @@ Označte výroky, které označují správnou hodnotu stupně robustnosti pro ka
 
 #pagebreak()
 
-*27. V distribuovaném systému byl spuštěn Chandy-Lamportův algoritmus pro výpočet globálního snapshotu. Aktuální stav běhu algoritmu je zachycen na resources/obrázku níže:*\
+*27. V distribuovaném systému byl spuštěn Chandy-Lamportův algoritmus pro výpočet globálního snapshotu. Aktuální stav běhu algoritmu je zachycen na obrázku níže:*\
 #figure(
   image("resources/obr09.png", height: 40%, fit: "stretch"),
 )
@@ -784,11 +789,11 @@ Proces _P_ používá Cristianův algoritmus pro synchronizaci fyzikálních hod
 
 #pagebreak()
 
-*69. V distribuovaném systému byl spuštěn Chandy-Lamportův algoritmus pro výpočet globálního snapshotu. Aktuální stav běhu algoritmu je zachycen na resources/obrázku níže.* \
+*69. V distribuovaném systému byl spuštěn Chandy-Lamportův algoritmus pro výpočet globálního snapshotu. Aktuální stav běhu algoritmu je zachycen na obrázku níže.* \
 #figure(
   image("resources/obr28.png", height: 40%, fit: "stretch"),
 )
-Uvažujme operace, které jednotlivé procesy provedou jako další krok Chandy-Lamportova algoritmu, tj. operace, které procesy uvedou od aktuálního okamžiku (označeného na resources/obrázku svislou čárkovanou čarou) do další aplikační události v daném procesu. Procesy mohou v tomto dalším kroku provést i několik operací najednou. \
+Uvažujme operace, které jednotlivé procesy provedou jako další krok Chandy-Lamportova algoritmu, tj. operace, které procesy uvedou od aktuálního okamžiku (označeného na obrázku svislou čárkovanou čarou) do další aplikační události v daném procesu. Procesy mohou v tomto dalším kroku provést i několik operací najednou. \
 *Doplňte:*\
 + Proces $P_1$ v dalším kroku provede následující operace: ........................
 + Proces $P_2$ v dalším kroku provede následující operace: ........................
@@ -850,7 +855,7 @@ Označte všechny správné odpovědi za předpokladu, že:
 
 #pagebreak()
 
-*73. V distribuovaném výpočtu zachyceném úplně na resources/obrázku uvažujme uspořádání událostí.*
+*73. V distribuovaném výpočtu zachyceném úplně na obrázku uvažujme uspořádání událostí.*
 #figure(
   image("resources/obr29.png", height: 30%, fit: "stretch"),
 )
